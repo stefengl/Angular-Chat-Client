@@ -1,0 +1,12 @@
+@import "../styles.css";
+
+.chat-wrapper {
+  height: 100%;
+  width: 100vw;
+  border: 1px solid black;
+  background: white;
+}
+
+.greeting-and-login-wrapper {
+  overflow: auto;
+}

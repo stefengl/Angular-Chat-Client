@@ -1,4 +1,7 @@
 <div class="msgArea">
+  <p *ngIf="activeRoom">
+    {{activeRoom.name}}
+  </p>
  <div class="messageBox">
     <span *ngFor="let msg of messages">
         <div class="msg">
@@ -13,3 +16,4 @@
   Textnachricht senden
   </div>
 </div>
+

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Message} from "../models/message";
+import { Room } from '../models/room';
+/*import {Message} from "../models/message";*/
+import { Component, OnInit, Input } from '@angular/core';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class ChatMessageHistoryComponent implements OnInit {
       date: "31.05.2017 - 12:07"
     }
   ];
+
+  @Input() activeRoom: Room = null;
 
   constructor() { }
 

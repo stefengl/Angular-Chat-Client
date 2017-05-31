@@ -8,6 +8,8 @@
     <input class="login-input" type="password" name="pw"  [(ngModel)]="pw" placeholder="Enter your password...">
   </form>
 
-  <button class="login-button" (click)="login()"> {{isLoggedIn? "Logout" : "Login" }}</button>
+  <button class="login-button" (click)="isLoggedIn? logout() : login()"> {{isLoggedIn? "Logout" : "Login" }}</button>
+
+  <button *ngIf="!isLoggedIn" class="login-button" (click)="register()">REGISTER</button>
 
 </section>

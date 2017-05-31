@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscriber} from "../models/Subscriber";
 
 @Component({
   selector: 'app-chat-participants',
@@ -7,6 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatParticipantsComponent implements OnInit {
 
+  subscriber: Subscriber[] =
+  [
+    {
+      name: 'Alex'
+    },
+    {
+      name: 'Benny'
+    }
+  ]
   constructor() { }
 
   ngOnInit() {

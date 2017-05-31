@@ -1,0 +1,8 @@
+.participants-wrapper
+{
+  height: 100%;
+  float: right;
+  box-sizing: border-box;
+  padding: 0;
+  width: 20%;
+}

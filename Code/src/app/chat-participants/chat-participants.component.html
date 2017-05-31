@@ -1,3 +1,10 @@
-<p>
-  chat-participants works!
-</p>
+<aside class="participants-wrapper">
+  <div>
+    <p>
+      Teilnehmer
+    </p>
+    <div *ngFor="let sub of subscriber">
+      {{sub.name}}
+    </div>
+  </div>
+</aside>

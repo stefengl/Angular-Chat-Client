@@ -42,6 +42,36 @@ export class ChatRoomDisplayComponent implements OnInit {
           name: "Stefan"
         }
       ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+         {
+          name: "Hier"
+        },
+         {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'TierChannel 5',
+      active: false,
+      subscribers:[
+        {
+          name: "Affe"
+        },
+        {
+          name: "Esel"
+        },
+        {
+          name: "Ziege"
+        }
+      ]
     }
   ]
 

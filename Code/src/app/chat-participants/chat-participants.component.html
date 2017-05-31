@@ -3,9 +3,12 @@
     <p>
       Teilnehmer
     </p>
-    <p *ngFor="let sub of subscriber">
-      {{sub.name}}
-    </p>
+    <ng-container *ngIf="activeRoom">
+      <p *ngFor="let sub of activeRoom.subscribers">
+        {{sub.name}}
+      </p>
+    </ng-container>
+
   </div>
 </aside>
 

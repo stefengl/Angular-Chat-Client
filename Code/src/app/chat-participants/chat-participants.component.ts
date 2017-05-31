@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Subscriber} from "../models/Subscriber";
+import { Room } from '../models/room';
 
 @Component({
   selector: 'app-chat-participants',
@@ -8,18 +9,15 @@ import {Subscriber} from "../models/Subscriber";
 })
 export class ChatParticipantsComponent implements OnInit {
 
-  subscriber: Subscriber[] =
-  [
-    {
-      name: 'Alex'
-    },
-    {
-      name: 'Benny'
-    }
-  ]
+  @Input() activeRoom: Room = null;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(){
+    console.log(this.activeRoom)
   }
 
 }

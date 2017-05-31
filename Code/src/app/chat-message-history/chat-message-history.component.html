@@ -1,3 +1,15 @@
-<p>
-  chat-message-history works!
-</p>
+<div class="msgArea">
+ <div class="messageBox">
+    <span *ngFor="let msg of messages">
+        <div class="msg">
+          <div class="msgUsername">{{msg.username}}</div>
+          <div class="msgMessage">{{msg.message}}</div>
+          <div class="msgDate">{{msg.date}}</div>
+        </div>
+    </span>
+
+  </div>
+  <div class="sendMessageBox">
+  Textnachricht senden
+  </div>
+</div>

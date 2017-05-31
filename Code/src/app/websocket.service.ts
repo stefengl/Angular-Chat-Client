@@ -11,9 +11,9 @@ export class WebsocketService {
 
   init() {
     this.connection = new WebSocket('ws://localhost:8080/chatsocket/');
-    
+
     let firstUser : boolean = true;
-    
+
     const loginData = {
         name: "phe",
         password: "1234"

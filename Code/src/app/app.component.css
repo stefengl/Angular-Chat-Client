@@ -7,5 +7,6 @@
 }
 
 .greeting-and-login-wrapper {
+  height: 35%;
   overflow: auto;
 }

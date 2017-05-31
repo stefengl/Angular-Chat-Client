@@ -1,3 +1,5 @@
+import { AuthenticationService } from '../authentication.service';
+import { WebsocketService } from '../websocket.service';
 import { Room } from '../models/room';
 /*import {Message} from "../models/message";*/
 import { Component, OnInit, Input } from '@angular/core';
@@ -9,30 +11,79 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./chat-message-history.component.css']
 })
 export class ChatMessageHistoryComponent implements OnInit {
-  user : string = "Benjamin";
-  messages : any[] = [
-    {
-      message: "Benny ist so cool",
-      username: "Alex Tarasov",
-      date: "31.05.2017 - 12:05"
-    },
-    {
-      message: "Schinken",
-      username: "Stefan",
-      date: "31.05.2017 - 12:06"
-    },
-    {
-      message: "Sebi stinkt",
-      username: "Benjamin",
-      date: "31.05.2017 - 12:07"
-    }
-  ];
+  
+  @Input() activeRoom: Room = null
+  @Input() userName : string = ''
 
-  @Input() activeRoom: Room = null;
+  textMessage : string = ''
 
-  constructor() { }
+  messages : any[] = [];
+
+
+  constructor(private websocket: WebsocketService, private auth: AuthenticationService) { }
 
   ngOnInit() {
+
+    this.handleSubscriptions()
+
   }
+
+
+  private sendMessage() {
+  
+    if(this.textMessage != ''){
+      this.addToMessages()
+      this.notifyServer()
+      this.resetInputfield()
+    }
+      
+  }
+
+   addToMessages(){
+            
+      this.messages.push({
+        message: this.textMessage,
+        username: this.userName,
+        date: this.getCurrentDatetime()
+      })
+
+   }
+
+   notifyServer() {
+
+      const data = {
+        roomName: this.activeRoom.name,
+        message: this.textMessage
+      }
+      this.websocket.sendEvent("SendMessageToRoom", data)
+
+   }
+
+
+   resetInputfield() {
+
+      this.textMessage = ''
+
+   }
+
+
+  getCurrentDatetime() : string{
+    const d = new Date()
+    const date = d.toLocaleDateString()
+    const time = d.toLocaleTimeString()
+
+    const currentDatetime = `${date} - ${time}`
+
+    return currentDatetime
+  }
+
+
+
+  handleSubscriptions(){
+    this.auth.userNameObservable.subscribe( (userName : string ) => {
+      this.userName = userName;
+    })
+  }
+
 
 }

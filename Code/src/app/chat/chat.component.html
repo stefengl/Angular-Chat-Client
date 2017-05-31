@@ -1,9 +1,13 @@
-<section class="chat-wrapper">
+<section *ngIf="isLoggedIn" class="chat-wrapper">
 
   <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)"></app-chat-room-display>
 
-  <app-chat-message-history [activeRoom]="activeRoom"></app-chat-message-history>
+  <app-chat-message-history [activeRoom]="activeRoom" [userName]="userName"></app-chat-message-history>
 
   <app-chat-participants [activeRoom]="activeRoom"></app-chat-participants>
 
 </section>
+
+<h1 *ngIf="!isLoggedIn" class="login-label">
+  Login first with Username: Esel and Password: esel
+</h1>

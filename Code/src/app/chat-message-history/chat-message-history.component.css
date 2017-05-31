@@ -1,36 +1,63 @@
-.msgArea{
-  width: 100%;
+.msgArea {
+  height: 100%;
+  width: 60%;
+  float: left;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  box-sizing: border-box;
+  padding: 2.5em;
+  overflow-y: scroll;
 }
 
-.messageBox{
+.msg-history-channel-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.83);
+  margin-bottom: 1em;
+}
+
+.messageBox {
   background-color: #fdfdfd;
-  padding: 2px;
 }
 
-.msg{
-  margin: 5px 5px 20px 5px;
+.msg {
+  max-width: 40%;
+  margin: 0 0 .7em 0;
   box-sizing: border-box;
   padding: 5px 10px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   background-color: white;
   border-radius: 0 0 10px 0;
-  max-width: 40%;
 }
 
-.msgMessage{
+.msgMessage {
   margin: 0px 0px 3px 0px;
 }
 
-.msgUsername{
+.msgUsername {
   color: coral;
   margin: 0px 0px 5px 0px;
 }
 
-.msgDate{
+.msgDate {
   font-size: x-small;
   text-align: right;
 }
 
-.sendMessageBox{
-  background-color: grey;
+form {
+  margin-top: 5em;
+}
+
+.send-message-box {
+  width: 90%;
+}
+
+.send-button {
+  background: #26A69A;
+  border: none;
+  border-radius: .25rem;
+  box-sizing: border-box;
+  padding: 0.2em 1em;
+  color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }

@@ -11,6 +11,15 @@ export class ChatParticipantsComponent implements OnInit {
 
   @Input() activeRoom: Room = null;
 
+  subscriber: Subscriber[] =
+  [
+    {
+      name: 'Alex'
+    },
+    {
+      name: 'Benny'
+    }
+  ]
   constructor() { }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private websocket : WebsocketService) {}
 
-  public authenticate(username: string = '', password: string= '') : boolean{
+  public authenticate(username : string, password : string) : boolean{
     if (username === '' || password === ''){
       return false
     }

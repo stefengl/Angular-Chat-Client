@@ -1,0 +1,13 @@
+<section class="login-wrapper">
+
+  <form class="login">
+    <label class="login-label" for="un">Username</label>
+    <input class="login-input" type="text" name="un" [(ngModel)]="username" placeholder="Enter your username...">
+
+    <label class="login-label" for="pw">Username</label>
+    <input class="login-input" type="password" name="pw"  [(ngModel)]="pw" placeholder="Enter your password...">
+  </form>
+
+  <button class="login-button" (click)="login()"> {{isLoggedIn? "Logout" : "Login" }}</button>
+
+</section>

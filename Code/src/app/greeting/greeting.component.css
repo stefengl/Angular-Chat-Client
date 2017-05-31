@@ -1,0 +1,17 @@
+.greeting-wrapper {
+    float:left;
+    padding: 2.5%
+}
+
+.greeting-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.83);
+  margin-bottom: .5em;
+}
+
+.current-time {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.83);
+}

@@ -1,0 +1,11 @@
+@import "../styles.css";
+
+.app-wrapper {
+  height: 100%;
+  width: 100vw;
+  background: white;
+}
+
+.greeting-and-login-wrapper {
+  overflow: auto;
+}

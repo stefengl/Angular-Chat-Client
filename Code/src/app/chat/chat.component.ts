@@ -1,3 +1,4 @@
+import { Room } from '../models/room';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
+  activeRoom: Room = null; 
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onActiveRoomChanged(r: Room){
+    
+    console.log("Switched to " +r.name);
+    
+    this.activeRoom = r;
   }
 
 }

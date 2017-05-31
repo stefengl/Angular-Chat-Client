@@ -1,6 +1,6 @@
 <aside class="chat-room-wrapper">
   <nav class="room-list">
-    <span *ngFor="let r of rooms" class="room">
+    <span *ngFor="let r of rooms" [style.background]="r.active?'lightblue':white" class="room" (click)="roomSelected(r)">
       {{r.name}}
     </span>
   </nav>

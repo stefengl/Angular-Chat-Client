@@ -1,8 +1,8 @@
 <section class="chat-wrapper">
 
-  <app-chat-room-display></app-chat-room-display>
+  <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)"></app-chat-room-display>
 
-  <app-chat-message-history></app-chat-message-history>
+  <app-chat-message-history [activeRoom]="activeRoom"></app-chat-message-history>
 
   <app-chat-participants></app-chat-participants>
 

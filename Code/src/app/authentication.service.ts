@@ -1,9 +1,10 @@
+import { WebsocketService } from './websocket.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthenticationService {
 
-  constructor() { }
+  constructor(private websocket: WebsocketService) { }
 
   /**
    * TODO
@@ -14,6 +15,18 @@ export class AuthenticationService {
       return false
     }
 
-    return false;
+    this.websocket.sendEvent( "Login", {
+        password: password,
+        email: username
+      })
+
+      return true;
+  }
+
+
+  public logout() : boolean {
+    this.websocket.sendEvent("Logout", {})
+    return false
+
   }
 }

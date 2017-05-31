@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Room } from '../models/room';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-chat-message-history',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-message-history.component.css']
 })
 export class ChatMessageHistoryComponent implements OnInit {
+
+  @Input() activeRoom: Room = null;
 
   constructor() { }
 

@@ -1,3 +1,4 @@
+import { WebsocketService } from '../websocket.service';
 import { AuthenticationService } from '../authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,21 +13,23 @@ export class LoginComponent {
   username: string = ''
   pw : string = ''
 
-  /**
-   * TODO
-   * Inject Authenticationservice
-   */
-  constructor(private authenticator : AuthenticationService) { }
+  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService) { }
 
 
-  /**
-   * TODO
-   * Use Authenticationservice to call backend
-   */
    private login(){
-
-    console.log(`Authenticating with --> User: ${this.username} and PW: ${this.pw}`)
-
     this.isLoggedIn = this.authenticator.authenticate(this.username, this.pw)
+   }
+
+   private logout(){
+     this.isLoggedIn = this.authenticator.logout()
+   }
+
+   private register(){
+     let newUser = {
+       email: this.username,
+       name: this.username,
+       password: this.pw
+     }
+     this.websocket.sendEvent("RegisterUser", newUser)
    }
 }

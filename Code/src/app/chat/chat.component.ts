@@ -19,8 +19,13 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
     this.auth.userNameObservable.subscribe( ( userName : string) => {
-      this.userName = userName
-      this.isLoggedIn = true
+      if (userName != ''){
+        this.userName = userName
+        this.isLoggedIn = true
+      } 
+      else {
+        this.isLoggedIn = false
+      }
     })
 
   }

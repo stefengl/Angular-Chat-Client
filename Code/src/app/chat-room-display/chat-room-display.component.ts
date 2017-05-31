@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit,Output, EventEmitter} from '@angular/core';
 import {Room} from '../models/room';
 
 @Component({
@@ -8,6 +8,7 @@ import {Room} from '../models/room';
   })
 
 export class ChatRoomDisplayComponent implements OnInit {
+  @Output() activeRoomEvent : EventEmitter<Room> = new EventEmitter<Room>()
 
   rooms: Room[] = [
     {
@@ -45,9 +46,12 @@ export class ChatRoomDisplayComponent implements OnInit {
   {
     this.rooms.forEach(room =>
     {
+
       room.active = false;
     })
 
     room.active = true;
+
+    this.activeRoomEvent.emit(room)
   }
 }

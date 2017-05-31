@@ -1,11 +1,12 @@
-<aside class="participants-wrapper">
-  <div>
-    <p>
-      Teilnehmer
-    </p>
-    <p *ngFor="let sub of subscriber">
+<aside *ngIf="activeRoom" class="participants-wrapper">
+
+  <h1 class="chat-participants-title">
+    People in this chat room
+  </h1>
+
+  <p class="participants-name" *ngFor="let sub of subscriber">
       {{sub.name}}
-    </p>
-  </div>
+  </p>
+
 </aside>
 

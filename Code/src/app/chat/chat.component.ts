@@ -1,3 +1,4 @@
+import { AuthenticationService } from '../authentication.service';
 import { Room } from '../models/room';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  activeRoom: Room = null; 
+  isLoggedIn : boolean = false
+  userName: string = ''
+  activeRoom: Room = null
 
-  constructor() { }
+
+  constructor(private auth: AuthenticationService) { }
 
   ngOnInit() {
+
+    this.auth.userNameObservable.subscribe( ( userName : string) => {
+      this.userName = userName
+      this.isLoggedIn = true
+    })
+
   }
 
   onActiveRoomChanged(r: Room){

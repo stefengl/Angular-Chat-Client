@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Room } from '../models/room';
+import { Component, OnInit, Input } from '@angular/core';
 import {Subscriber} from "../models/Subscriber";
 
 @Component({
@@ -8,6 +9,7 @@ import {Subscriber} from "../models/Subscriber";
 })
 export class ChatParticipantsComponent implements OnInit {
 
+  @Input() activeRoom : Room = null 
   subscriber: Subscriber[] =
   [
     {

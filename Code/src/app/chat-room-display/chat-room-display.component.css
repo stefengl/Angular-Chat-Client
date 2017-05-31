@@ -1,28 +1,25 @@
 .chat-room-wrapper {
   height: 100%;
+  width: 20%;
   float: left;
   box-sizing: border-box;
   padding: 0;
-  width: 20%;
 }
 
 .room-list {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
-  margin-top: 5px;
+  justify-content: space-around;
 }
 
-.room
-{
-  border: solid;
+.room {
   border-left: none;
-  margin-top: -1px;
-  height: 80px;
-  padding-left: 10px;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  padding: 1em 1.5em;
 }
 
-.active .room
-{
-  background-color: aqua;
+.room:hover {
+  background-color: #e0f2f1 !important;
 }

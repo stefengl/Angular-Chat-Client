@@ -1,0 +1,47 @@
+Hier noch die Vorlagen für die zur Zeit verfügbaren Commandos des Backends:
+const events = [
+ { display: "JoinRoom", template: { "roomName": "test" } },
+ { display: "LeaveRoom", template: { "roomName": "test" } },
+ { display: "SendMessageToRoom", template: {
+ "roomName": "test",
+ "message": "Huhu, dies ist ein Nachricht!"
+ } },
+ { display: "SetInviteRoom", template: {
+ "roomName": "test",
+ "inviteRequired": true
+ } },
+ { display: "SetVoiceRoom", template: {
+ "roomName": "test",
+ "voice": true
+ } },
+ { display: "GrantOp", template: {
+ "roomName": "test",
+ "email": "phe@test.de",
+ "op": true
+ } },
+ { display: "GrantVoice", template: {
+ "roomName": "test",
+ "email": "phe@test.de",
+ "voice": true
+ } },
+
+ { display: "ChangeUserPassword", template: {
+ "email": "phe@test.de",
+ "oldPassword": "1234",
+ "newPassword": "123"
+ } },
+ { display: "Login", template: {
+ password: "1234",
+ email: "phe@test.de"
+ } },
+ { display: "Logout", template: { } },
+ { display: "RegisterUser", template: {
+ "email": "phe@test.de",
+ "name": "phe",
+ "password": "1234"
+ } },
+ { display: "RenameUser", template: {
+ "email": "phe@test.de",
+ "userName": "phe second name"
+ } },
+];

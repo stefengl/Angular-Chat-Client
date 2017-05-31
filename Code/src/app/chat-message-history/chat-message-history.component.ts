@@ -25,7 +25,17 @@ export class ChatMessageHistoryComponent implements OnInit {
       message: "Sebi stinkt",
       username: "Benjamin",
       date: "31.05.2017 - 12:07"
-    }
+    },
+    {
+      message: "Burlywood ist die beste Farbe überhaupt",
+      username: "Benjamin",
+      date: "31.05.2017 - 12:07"
+    },
+    {
+      message: "Hello World",
+      username: "Benjamin",
+      date: "31.05.2017 - 12:07"
+    },
   ];
 
   @Input() activeRoom: Room = null;

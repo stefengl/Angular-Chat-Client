@@ -1,9 +1,11 @@
+import { Observable, Subject } from 'rxjs/Rx';
 import {Injectable} from '@angular/core';
 
 @Injectable()
 export class WebsocketService {
 
-  connected: boolean = false;
+  connectionFailed : Subject<boolean> = new Subject<boolean>()
+  connectionFailedObservable: Observable<boolean> = this.connectionFailed.asObservable()
 
   private connection : WebSocket;
 
@@ -28,6 +30,7 @@ export class WebsocketService {
     // Log messages from the server
     this.connection.onmessage = function (e) {
       var o = JSON.parse(e.data);
+
       console.log("Server", o);
     };
   }

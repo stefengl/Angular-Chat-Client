@@ -1,3 +1,4 @@
+import { WebsocketService } from '../websocket.service';
 import {Component, OnInit,Output, EventEmitter} from '@angular/core';
 import {Room} from '../models/room';
 
@@ -8,9 +9,12 @@ import {Room} from '../models/room';
   })
 
 export class ChatRoomDisplayComponent implements OnInit {
+
   @Output() activeRoomEvent : EventEmitter<Room> = new EventEmitter<Room>()
 
-  rooms: Room[] = [
+  activeRoom: Room = null
+
+  rooms : Room[] = [
     {
       name: 'Channel 1',
       active: false,
@@ -29,29 +33,47 @@ export class ChatRoomDisplayComponent implements OnInit {
     }, {
       name: 'Channel 6',
       active: false
-    }, {
-      name: 'Channel 7',
-      active: false
-    }, {
-      name: 'Channel 8',
-      active: false
     }
   ]
 
-  constructor() {}
+  constructor(private websocket: WebsocketService) {}
 
   ngOnInit() {}
 
-  onClicked(room : any)
+  onRoomClicked(room : any)
   {
     this.rooms.forEach(room =>
     {
-
       room.active = false;
     })
 
-    room.active = true;
-
-    this.activeRoomEvent.emit(room)
+    if(this.activeRoom != null){
+      this.leaveActiveRoom()
+    }
+    
+    this.joinNewRoom(room)
+  
   }
+
+
+  private joinNewRoom(newRoom: Room) {
+    newRoom.active = true;
+    this.activeRoom = newRoom;
+    this.activeRoomEvent.emit(newRoom)
+
+    this.websocket.sendEvent("JoinRoom", { 
+      roomName: newRoom.name
+    })
+  }
+
+
+  private leaveActiveRoom(){
+
+     this.websocket.sendEvent("LeaveRoom", {
+      roomName: this.activeRoom.name
+    })
+
+  }
+
+
 }

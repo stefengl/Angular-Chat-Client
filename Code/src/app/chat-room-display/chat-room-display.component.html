@@ -1,6 +1,6 @@
 <aside class="chat-room-wrapper">
   <nav class="room-list">
-    <div *ngFor="let r of rooms" class="room" [style.background-color]="r.active? 'gray': 'white' " (click)="onClicked(r)" >
+    <div *ngFor="let r of rooms" class="room" [style.background-color]="r.active? 'gray': 'white' " (click)="onRoomClicked(r)" >
       {{r.name}}
     </div>
   </nav>

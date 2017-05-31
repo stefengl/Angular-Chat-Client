@@ -1,20 +1,21 @@
-<div class="msgArea">
-  <div *ngIf="activeRoom" class="roomTitle">
-    {{activeRoom.name}}
-  </div>
- <div class="messageBox">
-    <span *ngFor="let msg of messages">
-        <div class="msg">
-          <div class="msgUsername">{{msg.username}}</div>
-          <div class="msgMessage">{{msg.message}}</div>
-          <div class="msgDate">{{msg.date}}</div>
-        </div>
-    </span>
+<section *ngIf="activeRoom" class="msgArea">
 
+  <h1 class="msg-history-channel-title">
+    {{activeRoom.name}}
+  </h1>
+
+  <div class="messageBox">
+    <article *ngFor="let msg of messages" class="msg">
+      <h3 class="msgUsername">{{msg.username}}</h3>
+      <p class="msgMessage">{{msg.message}}</p>
+      <span class="msgDate">{{msg.date}}</span>
+    </article>
   </div>
-  <div class="sendMessageBox">
-    <input>
-    <button>Senden</button>
-  </div>
-</div>
+
+  <form>
+    <input class="send-message-box" type="text" name="textmsg" [(ngModel)]="textMessage" placeholder="Enter text here...">
+    <button class="send-button" type="submit" (click)="sendMessage()">Send</button>
+  </form>
+
+</section>
 

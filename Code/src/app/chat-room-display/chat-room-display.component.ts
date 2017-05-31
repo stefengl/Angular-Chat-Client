@@ -1,6 +1,7 @@
 import { WebsocketService } from '../websocket.service';
 import {Component, OnInit,Output, EventEmitter} from '@angular/core';
 import {Room} from '../models/room';
+import {Subscriber} from "../models/Subscriber";
 
 @Component({
       selector: 'app-chat-room-display',
@@ -18,21 +19,59 @@ export class ChatRoomDisplayComponent implements OnInit {
     {
       name: 'Channel 1',
       active: false,
-    }, {
+      subscribers:[
+        {
+        name: "Alex"
+        }
+      ]
+    },
+    {
       name: 'Channel 2',
-      active: false
-    }, {
+      active: false,
+      subscribers:[
+        {
+          name: "Benny"
+        }
+      ]
+    },
+    {
       name: 'Channel 3',
-      active: false
-    }, {
-      name: 'Channel 4',
-      active: false
-    }, {
-      name: 'Channel 5',
-      active: false
-    }, {
-      name: 'Channel 6',
-      active: false
+      active: false,
+      subscribers:[
+        {
+          name: "Stefan"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+         {
+          name: "Hier"
+        },
+         {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'TierChannel 5',
+      active: false,
+      subscribers:[
+        {
+          name: "Affe"
+        },
+        {
+          name: "Esel"
+        },
+        {
+          name: "Ziege"
+        }
+      ]
     }
   ]
 
@@ -50,9 +89,9 @@ export class ChatRoomDisplayComponent implements OnInit {
     if(this.activeRoom != null){
       this.leaveActiveRoom()
     }
-    
+
     this.joinNewRoom(room)
-  
+
   }
 
 
@@ -61,7 +100,7 @@ export class ChatRoomDisplayComponent implements OnInit {
     this.activeRoom = newRoom;
     this.activeRoomEvent.emit(newRoom)
 
-    this.websocket.sendEvent("JoinRoom", { 
+    this.websocket.sendEvent("JoinRoom", {
       roomName: newRoom.name
     })
   }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Subscriber} from "../models/Subscriber";
+import { Room } from '../models/room';
 
 @Component({
   selector: 'app-chat-participants',
@@ -7,6 +8,8 @@ import {Subscriber} from "../models/Subscriber";
   styleUrls: ['./chat-participants.component.css']
 })
 export class ChatParticipantsComponent implements OnInit {
+
+  @Input() activeRoom: Room = null;
 
   subscriber: Subscriber[] =
   [
@@ -20,6 +23,10 @@ export class ChatParticipantsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(){
+    console.log(this.activeRoom)
   }
 
 }

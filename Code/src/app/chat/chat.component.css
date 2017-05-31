@@ -1,21 +1,11 @@
 .chat-wrapper {
   width: 100vw;
-  height: 70%;
+  height: 65%;
   overflow: auto;
   background: #fdfdfd;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-app-chat-room-display{
-  width: 20%;
-}
-
-app-chat-message-history{
-  width: 60%;
-  float: left;
-}
-
-app-chat-participants{
-  width: 20%;
-  float: right;
+.login-label{
+  text-align:center
 }

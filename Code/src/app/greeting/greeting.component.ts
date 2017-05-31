@@ -1,19 +1,25 @@
+import { AuthenticationService } from '../authentication.service';
 import {Component, OnInit} from '@angular/core';
 
 @Component({selector: 'app-greeting', templateUrl: './greeting.component.html', styleUrls: ['./greeting.component.css']})
 export class GreetingComponent implements OnInit {
 
-  username : string = "Stefan Englmeier"
+  username : string = ''
   time : string = ''
 
-  constructor() {}
+  constructor(private auth : AuthenticationService) {}
 
   ngOnInit() {
-    this.getUsername()
     this.setupClock()
+    this.handleSubscriptions()
   }
 
-  private getUsername() : void {}
+
+  private handleSubscriptions() {
+    this.auth.userNameObservable.subscribe((userName : string ) => {
+      this.username = userName
+    })
+  }
 
   private setupClock() : void {
 

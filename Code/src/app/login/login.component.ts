@@ -31,5 +31,7 @@ export class LoginComponent {
        password: this.pw
      }
      this.websocket.sendEvent("RegisterUser", newUser)
+
+     alert("You've been registered!")
    }
 }

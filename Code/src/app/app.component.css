@@ -1,9 +1,8 @@
 @import "../styles.css";
 
-.chat-wrapper {
+.app-wrapper {
   height: 100%;
   width: 100vw;
-  border: 1px solid black;
   background: white;
 }
 

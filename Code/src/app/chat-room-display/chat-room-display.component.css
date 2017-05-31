@@ -1,0 +1,20 @@
+.chat-room-wrapper {
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  padding: 1.5em 2em;
+}
+
+.room-list {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.room {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.83);
+  font-family: Arial, Helvetica, sans-serif;
+}

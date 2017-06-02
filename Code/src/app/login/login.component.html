@@ -1,15 +1,41 @@
 <section class="login-wrapper">
-
   <form class="login">
-    <label class="login-label" for="un">Username</label>
-    <input class="login-input" type="text" name="un" [(ngModel)]="username" placeholder="Enter your username...">
+    <label class="login-label" for="mail">Email</label>
+    <input class="login-input" type="text" name="mail" [(ngModel)]="loginEmail" placeholder="Enter your Email Address..."/>
 
     <label class="login-label" for="pw">Password</label>
-    <input class="login-input" type="password" name="pw"  [(ngModel)]="pw" placeholder="Enter your password...">
+    <input class="login-input" type="password" name="pw"  [(ngModel)]="loginPw" placeholder="Enter your password...">
   </form>
-
   <button class="login-button" (click)="isLoggedIn? logout() : login()"> {{isLoggedIn? "Logout" : "Login" }}</button>
+</section>
 
-  <button *ngIf="!isLoggedIn" class="login-button" (click)="register()">Register</button>
+<section class="login-wrapper" *ngIf="!isLoggedIn">
+  <form class="login">
+    <label class="login-label" for="un">Username</label>
+    <input class="login-input" type="text" name="un" [(ngModel)]="registerUsername" placeholder="Enter your username...">
 
+    <label class="login-label" for="mail">Email</label>
+    <input class="login-input" type="text" name="mail" [(ngModel)]="registerEmail" placeholder="Enter your Email Address..."/>
+
+    <label class="login-label" for="pw">Password</label>
+    <input class="login-input" type="password" name="pw"  [(ngModel)]="registerPw" placeholder="Enter your password...">
+  </form>
+  <button class="login-button" (click)="register()">Register</button>
+</section>
+
+<section *ngIf="isLoggedIn" class="login-wrapper rename-wrapper">
+  <form class="login">
+    <label class="login-label">Rename User</label>
+    <input class="login-input" type="text" name="reName" [(ngModel)]="newUsername" placeholder="Enter your new Username...">
+  </form>
+  <button class="login-button" (click)="rename()">Rename</button>
+</section>
+
+<section *ngIf="isLoggedIn" class="login-wrapper">
+  <form class="login">
+    <label class="login-label">Change Password</label>
+    <input class="login-input" type="password" name="currentPw" [(ngModel)]="currentPassword" placeholder="Enter your current Password..." />
+    <input class="login-input" type="password" name="newPw" [(ngModel)]="newPassword" placeholder="Enter your new Password..."/>
+  </form>
+  <button class="login-button" (click)="changePassword()">Change Password</button>
 </section>

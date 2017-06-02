@@ -10,25 +10,44 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent {
 
   isLoggedIn : boolean = false
-  username: string = ''
-  pw : string = ''
+  loginEmail : string = ''
+  loginPw : string = ''
 
-  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService) { }
+  registerEmail : string = ''
+  registerPw : string = ''
+  registerUsername: string = ''
+
+  newUsername: string = ''
+  currentPassword: string = ''
+  newPassword: string = ''
+
+
+  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService) {
+    console.log("Login Component wird initialisiert.")
+  }
 
 
    private login(){
-    this.isLoggedIn = this.authenticator.authenticate(this.username, this.pw)
+    this.isLoggedIn = this.authenticator.authenticate(this.loginEmail, this.loginPw)
    }
 
    private logout(){
      this.isLoggedIn = this.authenticator.logout()
    }
 
+   private rename(){
+     this.authenticator.rename(this.newUsername, this.loginEmail);
+   }
+
+   private changePassword(){
+    this.authenticator.changeUserPassword(this.loginEmail, this.currentPassword, this.newPassword);
+   }
+
    private register(){
      let newUser = {
-       email: this.username,
-       name: this.username,
-       password: this.pw
+       email: this.registerEmail,
+       name: this.registerUsername,
+       password: this.registerPw
      }
      this.websocket.sendEvent("RegisterUser", newUser)
 

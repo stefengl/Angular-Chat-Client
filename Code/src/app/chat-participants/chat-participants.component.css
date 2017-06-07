@@ -1,9 +1,7 @@
 .participants-wrapper {
   height: 100%;
-  width: 20%;
-  float: right;
+  width: 100%;
   box-sizing: border-box;
-  padding: 0.5em 1em;
 }
 
 

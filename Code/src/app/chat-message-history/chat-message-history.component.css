@@ -1,7 +1,6 @@
 .msgArea {
   height: 100%;
-  width: 60%;
-  float: left;
+  width: 100%;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
   box-sizing: border-box;
@@ -45,7 +44,10 @@
 }
 
 form {
-  margin-top: 5em;
+  position: absolute;
+  bottom: 5px;
+  width: 80%;
+
 }
 
 .send-message-box {

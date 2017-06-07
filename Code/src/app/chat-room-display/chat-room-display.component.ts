@@ -72,7 +72,113 @@ export class ChatRoomDisplayComponent implements OnInit {
           name: "Ziege"
         }
       ]
-    }
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },{
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+    {
+      name: 'Sebi stinkt Channel',
+      active: false,
+      subscribers:[
+        {
+          name: "Sebi stinkt"
+        },
+        {
+          name: "Hier"
+        },
+        {
+          name: "Ganz Allein"
+        }
+      ]
+    },
+
+
   ]
 
   constructor(private websocket: WebsocketService) {}

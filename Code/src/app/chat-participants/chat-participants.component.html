@@ -1,13 +1,7 @@
 <aside *ngIf="activeRoom" class="participants-wrapper">
-
-  <h1 class="chat-participants-title">
-    People in this chat room
-  </h1>
-
   <ng-container *ngIf="activeRoom">
     <p class="participants-name" *ngFor="let sub of activeRoom.subscribers">
       {{sub.name}}
     </p>
   </ng-container>
-  
 </aside>

@@ -1,24 +1,22 @@
 .chat-room-wrapper {
   height: 100%;
-  width: 20%;
-  float: left;
   box-sizing: border-box;
   padding: 0;
   border-right: 1px solid lightgray;
+  overflow: auto;
 }
 
 .room-list {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-around;
 }
 
 .room {
+  height: 70px;
   border-left: none;
-  box-sizing: border-box;
-  font-size: 1.25rem;
-  padding: 1em 1.5em;
+  padding: 10px;
+  margin-bottom: 5px;
   transition: .25s ease;
   cursor: pointer;
 }

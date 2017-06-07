@@ -1,6 +1,7 @@
 import { WebsocketService } from '../websocket.service';
 import { AuthenticationService } from '../authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,13 +23,15 @@ export class LoginComponent {
   newPassword: string = ''
 
 
-  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService) {
+  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService, private router: Router) {
     console.log("Login Component wird initialisiert.")
   }
 
 
    private login(){
-    this.isLoggedIn = this.authenticator.authenticate(this.loginEmail, this.loginPw)
+    this.router.navigate(['/chat']);
+    this.isLoggedIn = this.authenticator.authenticate(this.loginEmail, this.loginPw);
+
    }
 
    private logout(){

@@ -3,6 +3,7 @@ import { WebsocketService } from '../websocket.service';
 import { Room } from '../models/room';
 import {Message} from "../models/message";
 import { Component, OnInit, Input } from '@angular/core';
+import {MdGridListModule} from '@angular/material';
 
 
 @Component({

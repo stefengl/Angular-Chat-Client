@@ -13,7 +13,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ChatMessageHistoryComponent implements OnInit {
 
   @Input() activeRoom: Room = null
-  @Input() userName : string = ''
+  @Input() username : string = ''
 
   textMessage : string = ''
 
@@ -42,7 +42,7 @@ export class ChatMessageHistoryComponent implements OnInit {
 
       this.messages.push({
         message: this.textMessage,
-        username: this.userName,
+        username: this.username,
         date: this.getCurrentDatetime()
       })
 
@@ -79,9 +79,6 @@ export class ChatMessageHistoryComponent implements OnInit {
 
 
   handleSubscriptions(){
-    this.auth.userNameObservable.subscribe( (userName : string ) => {
-      this.userName = userName;
-    })
 
     this.websocket.MessageSendToRoom.subscribe( (value) => {
 

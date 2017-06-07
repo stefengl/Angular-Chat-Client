@@ -16,8 +16,8 @@ export class GreetingComponent implements OnInit {
 
 
   private handleSubscriptions() {
-    this.auth.userNameObservable.subscribe((userName : string ) => {
-      this.username = userName
+    this.auth.loginDescriptionObservable.subscribe(( loginDescription ) => {
+      this.username = loginDescription.username
     })
   }
 

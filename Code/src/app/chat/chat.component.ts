@@ -10,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class ChatComponent implements OnInit {
 
   isLoggedIn : boolean = false
-  userName: string = ''
+  email: string = ''
+  username: string = ''
   activeRoom: Room = null
 
 
@@ -18,14 +19,10 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
 
-    this.auth.userNameObservable.subscribe( ( userName : string) => {
-      if (userName != ''){
-        this.userName = userName
-        this.isLoggedIn = true
-      } 
-      else {
-        this.isLoggedIn = false
-      }
+    this.auth.loginDescriptionObservable.subscribe( ( loginDescription ) => {
+      this.email = loginDescription.email
+      this.username = loginDescription.username
+      this.isLoggedIn = loginDescription.isLoggedIn
     })
 
   }

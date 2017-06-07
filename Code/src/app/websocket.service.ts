@@ -4,11 +4,17 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class WebsocketService {
 
-  connectionFailed : Subject<boolean> = new Subject<boolean>()
-  connectionFailedObservable: Observable<boolean> = this.connectionFailed.asObservable()
+  loginFailed : Subject<boolean> = new Subject<boolean>()
+  loginFailedObservable: Observable<boolean> = this.loginFailed.asObservable()
+
+  loginSuccess : Subject<any> = new Subject<any>()
+  loginSuccessObservable: Observable<any> = this.loginSuccess.asObservable()
+
+  logout : Subject<any> = new Subject<any>()
+  logoutObservable: Observable<any> = this.logout.asObservable()
 
   MessageSendToRoom : Subject<any> = new Subject<any>()
-  MessageSendToRoomObservable: Observable<any> = this.connectionFailed.asObservable()
+  MessageSendToRoomObservable: Observable<any> = this.MessageSendToRoom.asObservable()
 
   private connection : WebSocket;
 
@@ -31,16 +37,36 @@ export class WebsocketService {
       console.log('WebSocket Error ' + error);
     };
 
-    // Log messages from the server
+    // Handler server events
     this.connection.onmessage = (e) => {
       var o = JSON.parse(e.data);
-
-      if(o.type ===  "MessageSendToRoom"){
-        this.MessageSendToRoom.next(o.value)
-        console.log("geht")
-      }
-
       console.log("Server", o);
+      
+      switch (o.type) {
+        case "MessageSendToRoom":
+          this.MessageSendToRoom.next(o.value)
+          break;
+
+        case "LoggedIn": 
+          this.loginSuccess.next({
+            email: o.value.email,
+            name: o.value.name
+          })
+          break;
+
+        case "LoggedOut": 
+          this.logout.next({
+            email: o.value.email
+          })
+          break;
+
+        case "LoginFailed": 
+          this.loginFailed.next(false)
+          break;
+
+        default:
+          break;
+      }
     };
   }
 

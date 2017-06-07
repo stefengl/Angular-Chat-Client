@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   isLoggedIn : boolean = false
   loginEmail : string = ''
@@ -23,37 +23,53 @@ export class LoginComponent {
   newPassword: string = ''
 
 
-  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService, private router: Router) {
-    console.log("Login Component wird initialisiert.")
+
+  constructor(private auth : AuthenticationService, private websocket: WebsocketService, private router: Router) {
+
   }
 
 
-   private login(){
+  ngOnInit () {
+    this.handleSubscriptions()
+  }
+
+
+  private handleSubscriptions() {
+    this.auth.loginDescriptionObservable.subscribe( ( loginDescription ) => {
+      this.isLoggedIn = loginDescription.isLoggedIn
+    })
+  }
+
+
+  private login(){
+    this.auth.authenticate(this.loginEmail, this.loginPw);
     this.router.navigate(['/chat']);
-    this.isLoggedIn = this.authenticator.authenticate(this.loginEmail, this.loginPw);
+  }
 
-   }
 
-   private logout(){
-     this.isLoggedIn = this.authenticator.logout()
-   }
+  private logout(){
+    this.isLoggedIn = this.auth.logout()
+  }
 
-   private rename(){
-     this.authenticator.rename(this.newUsername, this.loginEmail);
-   }
 
-   private changePassword(){
-    this.authenticator.changeUserPassword(this.loginEmail, this.currentPassword, this.newPassword);
-   }
+  private rename(){
+    this.auth.rename(this.newUsername, this.loginEmail);
+  }
 
-   private register(){
-     let newUser = {
-       email: this.registerEmail,
-       name: this.registerUsername,
-       password: this.registerPw
-     }
-     this.websocket.sendEvent("RegisterUser", newUser)
 
-     alert("You've been registered!")
-   }
+  private changePassword(){
+  this.auth.changeUserPassword(this.loginEmail, this.currentPassword, this.newPassword);
+  }
+
+
+  private register(){
+    let newUser = {
+      email: this.registerEmail,
+      name: this.registerUsername,
+      password: this.registerPw
+    }
+    this.websocket.sendEvent("RegisterUser", newUser)
+
+    alert("You've been registered!")
+  }
 }

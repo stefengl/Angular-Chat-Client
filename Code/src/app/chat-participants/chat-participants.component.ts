@@ -14,10 +14,12 @@ export class ChatParticipantsComponent implements OnInit {
   subscriber: Subscriber[] =
   [
     {
-      name: 'Alex'
+      name: 'Alex',
+      email: ""
     },
     {
-      name: 'Benny'
+      name: 'Benny',
+      email: ""
     }
   ]
   constructor() { }

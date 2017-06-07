@@ -5,25 +5,71 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthenticationService {
 
-  userNameSubject : Subject<string> = new Subject<string>()
-  userNameObservable : Observable<string> = this.userNameSubject.asObservable()
+  /**
+   * JSON
+   * email
+   * username
+   * isLoggedIn
+   */
+  loginDescription : Subject<any> = new Subject<any>()
+  loginDescriptionObservable : Observable<any> = this.loginDescription.asObservable()
 
-  constructor(private websocket : WebsocketService) {}
 
-  public authenticate(mail : string, password : string) : boolean{
+  constructor(private websocket : WebsocketService) {
+
+    this.handleSubscriptions()
+
+  }
+
+  private handleSubscriptions() {
+
+    this.websocket.loginFailedObservable.subscribe( ( data ) => {
+
+      const loginDesc = {
+        email: '',
+        username: '',
+        isLoggedIn: data
+      }
+
+      this.loginDescription.next(loginDesc)
+
+    })
+
+    this.websocket.loginSuccessObservable.subscribe(( data ) => {
+
+      const loginDesc = {
+        email: data.email,
+        username: data.name,
+        isLoggedIn: true
+      }      
+
+      this.loginDescription.next(loginDesc)
+    })
+
+    this.websocket.logoutObservable.subscribe( ( data ) => {
+
+      const loginDesc = {
+        email: data.email,
+        isLoggedIn: false
+      }
+
+      this.loginDescription.next(loginDesc)
+    })
+  }
+
+  
+  
+  public authenticate(mail : string, password : string) {
     if (mail === '' || password === ''){
-      return false
+      return
     }
 
     this.websocket.sendEvent( "Login", {
         password: password,
         email: mail
       })
-
-    this.userNameSubject.next(mail)
-
-    return true;
   }
+
 
   public changeUserPassword(mail: string, currentPw : string, newPw : string): boolean {
     this.websocket.sendEvent("ChangeUserPassword",
@@ -36,17 +82,17 @@ export class AuthenticationService {
   }
 
   public rename(newUsername : string, email : string) : boolean {
+    
     this.websocket.sendEvent( "RenameUser", {
       email: email,
       userName: newUsername
     });
+
     return true;
   }
 
 
   public logout() : boolean {
-
-    this.userNameSubject.next('')
 
     this.websocket.sendEvent("Logout", {})
     return false

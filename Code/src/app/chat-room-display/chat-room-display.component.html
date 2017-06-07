@@ -1,7 +1,10 @@
 <aside class="chat-room-wrapper">
   <md-nav-list style="height: 100px;">
     <div *ngFor="let r of rooms" class="room" [style.background-color]="r.active? '#e0f2f1': '#fdfdfd' " (click)="onRoomClicked(r)" >
+
       {{r.name}}
+
+      <button (click)="joinRoomClicked(r)"> {{r.joined? 'Raum verlassen' : 'Raum betreten'}}</button>
     </div>
   </md-nav-list>
 </aside>

@@ -1,8 +1,15 @@
 export class Subscriber
 {
   name: string;
-  constructor(name: string)
+  email: string;
+
+  constructor()
+
+  constructor(name: string, email: string);
+
+  constructor(name?: string, email?: string)
   {
-    name = name;
+    this.name = name;
+    this.email = email;
   }
 }

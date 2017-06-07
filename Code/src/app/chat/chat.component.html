@@ -1,8 +1,10 @@
 <!--<section *ngIf="isLoggedIn" class="chat-wrapper">
 
-  <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)"></app-chat-room-display>
+  <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)"
+                         (roomLeaveEvent)="onRoomLeft($event)"
+                         (roomJoinedEvent)="onRoomJoined($event)"></app-chat-room-display>
 
-  <app-chat-message-history [activeRoom]="activeRoom" [userName]="userName"></app-chat-message-history>
+  <app-chat-message-history [activeRoom]="activeRoom" [username]="username"></app-chat-message-history>
 
   <app-chat-participants [activeRoom]="activeRoom"></app-chat-participants>
 
@@ -17,7 +19,9 @@
   <md-grid-tile>Teilnehmer</md-grid-tile>
 </md-grid-list>
 <md-grid-list cols="6" [rowHeight]=windowHeight>
-  <md-grid-tile><app-chat-room-display  style="height: 100%; width: 100%;" (activeRoomEvent)="onActiveRoomChanged($event)"></app-chat-room-display></md-grid-tile>
-  <md-grid-tile [colspan]="4"><app-chat-message-history style="height: 100%; width: 100%;" [activeRoom]="activeRoom" [userName]="userName"></app-chat-message-history></md-grid-tile>
+  <md-grid-tile><app-chat-room-display style="height: 100%; width: 100%;" (activeRoomEvent)="onActiveRoomChanged($event)"
+                                       (roomLeaveEvent)="onRoomLeft($event)"
+                                       (roomJoinedEvent)="onRoomJoined($event)"></app-chat-room-display></md-grid-tile>
+  <md-grid-tile [colspan]="4"><app-chat-message-history style="height: 100%; width: 100%" [activeRoom]="activeRoom" [username]="username"></app-chat-message-history></md-grid-tile>
   <md-grid-tile><app-chat-participants [activeRoom]="activeRoom"></app-chat-participants></md-grid-tile>
 </md-grid-list>

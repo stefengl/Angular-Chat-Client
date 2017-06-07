@@ -5,8 +5,8 @@
   </h1>
 
   <div class="messageBox">
-    <article *ngFor="let msg of messages" class="msg">
-      <h3 class="msgUsername">{{msg.username}}</h3>
+    <article *ngFor="let msg of activeRoom.messages" class="msg">
+      <h3 *ngIf="msg.username != ''" class="msgUsername">{{msg.username}}</h3>
       <p class="msgMessage">{{msg.message}}</p>
       <span class="msgDate">{{msg.date}}</span>
     </article>

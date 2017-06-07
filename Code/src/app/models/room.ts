@@ -1,17 +1,22 @@
 import {Subscriber} from "../models/Subscriber";
+import {Message} from "../models/message";
 
 export class Room {
   name : string;
   active : boolean;
+  joined : boolean
   subscribers: Subscriber[];
+  messages : Message[];
 
   constructor();
 
-  constructor(name : string, active : boolean, subscriber: Subscriber);
+  constructor(name : string, active : boolean, joined : boolean, subscriber: Subscriber[], messages: Message[]);
 
-  constructor(name?: string, active?: boolean, subscribers?: Subscriber) {
-    name = name || '';
-    active = active || false;
-    subscribers = subscribers || null;
+  constructor(name?: string, active?: boolean, joined?: boolean, subscribers?: Subscriber[], messages?: Message[]) {
+    this.name = name || '';
+    this.active = active || false;
+    this.joined = active || false;
+    this.subscribers = subscribers || null;
+    this.messages = messages || null;
   }
 }

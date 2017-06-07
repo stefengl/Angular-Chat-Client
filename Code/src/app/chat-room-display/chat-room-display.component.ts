@@ -13,71 +13,29 @@ export class ChatRoomDisplayComponent implements OnInit {
 
   @Output() activeRoomEvent : EventEmitter<Room> = new EventEmitter<Room>()
 
+  @Output() roomJoinedEvent : EventEmitter<Room> = new EventEmitter<Room>()
+
   activeRoom: Room = null
 
-  rooms : Room[] = [
-    {
-      name: 'Channel 1',
-      active: false,
-      subscribers:[
-        {
-        name: "Alex"
-        }
-      ]
-    },
-    {
-      name: 'Channel 2',
-      active: false,
-      subscribers:[
-        {
-          name: "Benny"
-        }
-      ]
-    },
-    {
-      name: 'Channel 3',
-      active: false,
-      subscribers:[
-        {
-          name: "Stefan"
-        }
-      ]
-    },
-    {
-      name: 'Sebi stinkt Channel',
-      active: false,
-      subscribers:[
-        {
-          name: "Sebi stinkt"
-        },
-         {
-          name: "Hier"
-        },
-         {
-          name: "Ganz Allein"
-        }
-      ]
-    },
-    {
-      name: 'TierChannel 5',
-      active: false,
-      subscribers:[
-        {
-          name: "Affe"
-        },
-        {
-          name: "Esel"
-        },
-        {
-          name: "Ziege"
-        }
-      ]
-    }
-  ]
+
 
   constructor(private websocket: WebsocketService) {}
 
   ngOnInit() {}
+
+  joinRoomClicked(r : Room) {
+
+  }
+
+  addToJoinedRooms(room :Room){
+    event.stopPropagation()
+
+    this.roomJoinedEvent.emit(room);
+  }
+
+  removeFromJoinedRooms(room :Room){
+
+  }
 
   onRoomClicked(room : any)
   {
@@ -86,11 +44,7 @@ export class ChatRoomDisplayComponent implements OnInit {
       room.active = false;
     })
 
-    if(this.activeRoom != null){
-      this.leaveActiveRoom()
-    }
 
-    this.joinNewRoom(room)
 
   }
 
@@ -100,9 +54,6 @@ export class ChatRoomDisplayComponent implements OnInit {
     this.activeRoom = newRoom;
     this.activeRoomEvent.emit(newRoom)
 
-    this.websocket.sendEvent("JoinRoom", {
-      roomName: newRoom.name
-    })
   }
 
 
@@ -114,5 +65,20 @@ export class ChatRoomDisplayComponent implements OnInit {
 
   }
 
-
+  rooms : Room[] = [
+    {
+      name: 'Channel 1',
+      active: false,
+      joined: false,
+      subscribers:[],
+      messages:[],
+    },
+    {
+      name: 'Channel 2',
+      active: false,
+      joined: false,
+      subscribers:[],
+      messages:[]
+    }
+  ]
 }

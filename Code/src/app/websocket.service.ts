@@ -10,6 +10,9 @@ export class WebsocketService {
   MessageSendToRoom : Subject<any> = new Subject<any>()
   MessageSendToRoomObservable: Observable<any> = this.connectionFailed.asObservable()
 
+  RoomJoined : Subject<any> = new Subject<any>();
+  RoomJoinedObservable : Observable<any> = this.connectionFailed.asObservable()
+
   private connection : WebSocket;
 
   constructor() {
@@ -38,6 +41,15 @@ export class WebsocketService {
       if(o.type ===  "MessageSendToRoom"){
         this.MessageSendToRoom.next(o.value)
         console.log("geht")
+      }
+
+      switch(o.type) {
+        case "MessageSentToRoom":
+          break;
+        case "RoomJoined":
+          this.RoomJoined.next(o.value)
+          break;
+        default:
       }
 
       console.log("Server", o);

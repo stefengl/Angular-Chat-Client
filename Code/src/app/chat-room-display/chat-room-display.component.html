@@ -2,6 +2,8 @@
   <nav class="room-list">
     <div *ngFor="let r of rooms" class="room" [style.background-color]="r.active? '#e0f2f1': '#fdfdfd' " (click)="onRoomClicked(r)" >
       {{r.name}}
+
+      <button (click)="addToJoinedRooms(r)">Raum betreten</button>
     </div>
   </nav>
 </aside>

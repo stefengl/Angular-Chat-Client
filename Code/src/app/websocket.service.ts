@@ -4,14 +4,22 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class WebsocketService {
 
-  connectionFailed : Subject<boolean> = new Subject<boolean>()
-  connectionFailedObservable: Observable<boolean> = this.connectionFailed.asObservable()
+  loginFailed : Subject<boolean> = new Subject<boolean>()
+  loginFailedObservable: Observable<boolean> = this.loginFailed.asObservable()
 
-  MessageSendToRoom : Subject<any> = new Subject<any>()
-  MessageSendToRoomObservable: Observable<any> = this.connectionFailed.asObservable()
+  loginSuccess : Subject<any> = new Subject<any>()
+  loginSuccessObservable: Observable<any> = this.loginSuccess.asObservable()
 
-  RoomJoined : Subject<any> = new Subject<any>();
-  RoomJoinedObservable : Observable<any> = this.connectionFailed.asObservable()
+  logout : Subject<any> = new Subject<any>()
+  logoutObservable: Observable<any> = this.logout.asObservable()
+
+  messageSendToRoom : Subject<any> = new Subject<any>()
+  messageSendToRoomObservable: Observable<any> = this.messageSendToRoom.asObservable()
+
+  roomJoined : Subject<any> = new Subject<any>();
+  roomJoinedObservable : Observable<any> = this.roomJoined.asObservable()
+
+  socketId : number = -1;
 
   private connection : WebSocket;
 
@@ -34,26 +42,54 @@ export class WebsocketService {
       console.log('WebSocket Error ' + error);
     };
 
-    // Log messages from the server
+    // Handler server events
     this.connection.onmessage = (e) => {
       var o = JSON.parse(e.data);
+      console.log("Server", o);
 
-      if(o.type ===  "MessageSendToRoom"){
-        this.MessageSendToRoom.next(o.value)
-        console.log("geht")
-      }
+      switch (o.type) {
+        case "MessageSendToRoom":
+          this.messageSendToRoom.next(o.value)
+          break;
 
-      switch(o.type) {
-        case "MessageSentToRoom":
+        case "LoggedIn":
+          if(this.verifyLoginResult(o.value))
+          this.loginSuccess.next({
+            email: o.value.email,
+            name: o.value.name
+          })
           break;
         case "RoomJoined":
-          this.RoomJoined.next(o.value)
+          this.roomJoined.next(o.value)
           break;
-        default:
-      }
 
-      console.log("Server", o);
+        case "LoggedOut":
+          this.logout.next({
+            email: o.value.email
+          })
+          break;
+
+        case "LoginFailed":
+          this.loginFailed.next(false)
+          break;
+
+        case "SocketIdEvent":
+          this.socketId = o.value.id;
+          console.log(this.socketId);
+          break;
+
+        default:
+          break;
+      }
     };
+  }
+
+  verifyLoginResult(result: any): boolean{
+    if(this.socketId == result.id){console.log("richtige SocketId"); return true;}
+    else{
+      console.log("falsche SocketId");
+      return false;
+    }
   }
 
   sendEvent(type: string, data: any): void {

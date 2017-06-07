@@ -15,6 +15,8 @@ export class ChatRoomDisplayComponent implements OnInit {
 
   @Output() roomJoinedEvent : EventEmitter<Room> = new EventEmitter<Room>()
 
+  @Output() roomLeaveEvent : EventEmitter<Room> = new EventEmitter<Room>()
+
   activeRoom: Room = null
 
 
@@ -24,17 +26,26 @@ export class ChatRoomDisplayComponent implements OnInit {
   ngOnInit() {}
 
   joinRoomClicked(r : Room) {
-
+    if(r.joined) {
+      this.removeFromJoinedRooms(r)
+    }
+    else {
+      this.addToJoinedRooms(r)
+    }
   }
 
   addToJoinedRooms(room :Room){
-    event.stopPropagation()
-
+    room.joined = true
+    room.active = true
+    this.websocket.sendEvent("JoinRoom",{roomName: room.name})
     this.roomJoinedEvent.emit(room);
+
   }
 
   removeFromJoinedRooms(room :Room){
-
+    room.joined = false
+    this.websocket.sendEvent("LeaveRoom", {roomName: room.name})
+    this.roomLeaveEvent.emit(room)
   }
 
   onRoomClicked(room : any)
@@ -44,7 +55,11 @@ export class ChatRoomDisplayComponent implements OnInit {
       room.active = false;
     })
 
+    if(this.activeRoom == null || this.activeRoom.name != room.name) {
 
+      this.activeRoomEvent.emit(room)
+
+    }
 
   }
 

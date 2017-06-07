@@ -12,24 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
+  email: string = ''
+  username: string = ''
   isLoggedIn : boolean = false
-  userName: string = ''
-  activeRoom: Room = null;
+
   joinedRooms: Room[] = [];
+  activeRoom: Room = null
+
 
   constructor(private websocket: WebsocketService, private auth: AuthenticationService) { }
 
   ngOnInit() {
+    this.handleSubscriptions()
 
-    this.auth.userNameObservable.subscribe( ( userName : string) => {
-      if (userName != ''){
-        this.userName = userName
-        this.isLoggedIn = true
-      }
-      else {
-        this.isLoggedIn = false
-      }
-    })
   }
 
   getCurrentDatetime() : string{
@@ -43,21 +38,30 @@ export class ChatComponent implements OnInit {
   }
 
   onActiveRoomChanged(r: Room){
-
-    console.log("Switched to " +r.name);
-
     this.activeRoom = r;
   }
 
   onRoomJoined(room: Room){
-    console.log(room);
+
     this.joinedRooms.push(room);
 
     this.activeRoom = room;
   }
 
+  onRoomLeft(room: Room) {
+    this.joinedRooms = this.joinedRooms.splice(this.joinedRooms.indexOf(room), 1)
+  }
+
   handleSubscriptions(){
-    this.websocket.MessageSendToRoom.subscribe( (value) => {
+
+    this.auth.loginDescriptionObservable.subscribe( ( loginDescription ) => {
+      this.email = loginDescription.email
+      this.username = loginDescription.username
+      this.isLoggedIn = loginDescription.isLoggedIn
+    })
+
+
+    this.websocket.messageSendToRoom.subscribe( (value) => {
       this.joinedRooms.forEach(room => {
         if(room.name === value.roomName){
           room.messages.push(new Message(false, value.message, value.email, this.getCurrentDatetime()));
@@ -66,28 +70,15 @@ export class ChatComponent implements OnInit {
           }
         }
       })
-
-      /*
-      const newMsg = {
-        isNotify: false,
-        message: value.message,
-        username: value.email,
-        date: this.getCurrentDatetime()
-      }
-
-      if(value.roomName == this.activeRoom.name){
-        this.messages.push(newMsg)
-
-      }
-        */
     })
 
-    this.websocket.RoomJoined.subscribe( (value) => {
-      if(value.email === this.userName)
+    this.websocket.roomJoined.subscribe( (value) => {
+      if(value.email === this.username)
       {
         let newRoom = {
           name: value.roomName,
           active: false,
+          joined: false,
           subscribers: [],
           messages : [{
             isNotify: true,
@@ -97,8 +88,6 @@ export class ChatComponent implements OnInit {
           }]
         }
 
-        this.joinedRooms.push(newRoom);
-        this.activeRoom = newRoom;
       }
       else{
         this.joinedRooms.forEach(room => {

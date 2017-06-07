@@ -1,8 +1,10 @@
 <section *ngIf="isLoggedIn" class="chat-wrapper">
 
-  <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)" (roomJoinedEvent)="onRoomJoined($event)"></app-chat-room-display>
+  <app-chat-room-display (activeRoomEvent)="onActiveRoomChanged($event)"
+                         (roomLeaveEvent)="onRoomLeft($event)"
+                         (roomJoinedEvent)="onRoomJoined($event)"></app-chat-room-display>
 
-  <app-chat-message-history [activeRoom]="activeRoom" [userName]="userName"></app-chat-message-history>
+  <app-chat-message-history [activeRoom]="activeRoom" [username]="username"></app-chat-message-history>
 
   <app-chat-participants [activeRoom]="activeRoom"></app-chat-participants>
 

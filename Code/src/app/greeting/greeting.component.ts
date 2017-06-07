@@ -7,6 +7,8 @@ export class GreetingComponent implements OnInit {
   username : string = ''
   time : string = ''
 
+
+  test :any = null
   constructor(private auth : AuthenticationService) {}
 
   ngOnInit() {
@@ -16,8 +18,9 @@ export class GreetingComponent implements OnInit {
 
 
   private handleSubscriptions() {
-    this.auth.userNameObservable.subscribe((userName : string ) => {
-      this.username = userName
+    this.test = this.auth.loginDescriptionObservable.subscribe(( loginDescription ) => {
+      this.username = loginDescription.username
+
     })
   }
 

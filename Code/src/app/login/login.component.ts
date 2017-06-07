@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   isLoggedIn : boolean = false
   loginEmail : string = ''
@@ -22,35 +22,51 @@ export class LoginComponent {
   newPassword: string = ''
 
 
-  constructor(private authenticator : AuthenticationService, private websocket: WebsocketService) {
+  constructor(private auth : AuthenticationService, private websocket: WebsocketService) {
     console.log("Login Component wird initialisiert.")
   }
 
+  
+  ngOnInit () {
+    this.handleSubscriptions()
+  }
 
-   private login(){
-    this.isLoggedIn = this.authenticator.authenticate(this.loginEmail, this.loginPw)
-   }
 
-   private logout(){
-     this.isLoggedIn = this.authenticator.logout()
-   }
+  private handleSubscriptions() {
+    this.auth.loginDescriptionObservable.subscribe( ( loginDescription ) => {
+      this.isLoggedIn = loginDescription.isLoggedIn
+    })
+  }
 
-   private rename(){
-     this.authenticator.rename(this.newUsername, this.loginEmail);
-   }
 
-   private changePassword(){
-    this.authenticator.changeUserPassword(this.loginEmail, this.currentPassword, this.newPassword);
-   }
+  private login(){
+    this.auth.authenticate(this.loginEmail, this.loginPw)
+  }
 
-   private register(){
-     let newUser = {
-       email: this.registerEmail,
-       name: this.registerUsername,
-       password: this.registerPw
-     }
-     this.websocket.sendEvent("RegisterUser", newUser)
 
-     alert("You've been registered!")
-   }
+  private logout(){
+    this.isLoggedIn = this.auth.logout()
+  }
+
+
+  private rename(){
+    this.auth.rename(this.newUsername, this.loginEmail);
+  }
+
+
+  private changePassword(){
+  this.auth.changeUserPassword(this.loginEmail, this.currentPassword, this.newPassword);
+  }
+
+
+  private register(){
+    let newUser = {
+      email: this.registerEmail,
+      name: this.registerUsername,
+      password: this.registerPw
+    }
+    this.websocket.sendEvent("RegisterUser", newUser)
+
+    alert("You've been registered!")
+  }
 }

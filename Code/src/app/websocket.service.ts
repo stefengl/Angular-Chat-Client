@@ -7,6 +7,9 @@ export class WebsocketService {
   connectionFailed : Subject<boolean> = new Subject<boolean>()
   connectionFailedObservable: Observable<boolean> = this.connectionFailed.asObservable()
 
+  MessageSendToRoom : Subject<any> = new Subject<any>()
+  MessageSendToRoomObservable: Observable<any> = this.connectionFailed.asObservable()
+
   private connection : WebSocket;
 
   constructor() {
@@ -29,8 +32,14 @@ export class WebsocketService {
     };
 
     // Log messages from the server
-    this.connection.onmessage = function (e) {
+    this.connection.onmessage = (e) => {
       var o = JSON.parse(e.data);
+
+      if(o.type ===  "MessageSendToRoom"){
+        this.MessageSendToRoom.next(o.value)
+        console.log("geht")
+      }
+
       console.log("Server", o);
     };
   }

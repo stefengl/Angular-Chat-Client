@@ -1,7 +1,7 @@
 import { AuthenticationService } from '../authentication.service';
 import { WebsocketService } from '../websocket.service';
 import { Room } from '../models/room';
-/*import {Message} from "../models/message";*/
+import {Message} from "../models/message";
 import { Component, OnInit, Input } from '@angular/core';
 
 
@@ -17,7 +17,7 @@ export class ChatMessageHistoryComponent implements OnInit {
 
   textMessage : string = ''
 
-  messages : any[] = [];
+  messages : Message[] = [];
 
 
   constructor(private websocket: WebsocketService, private auth: AuthenticationService) { }
@@ -32,7 +32,6 @@ export class ChatMessageHistoryComponent implements OnInit {
   private sendMessage() {
 
     if(this.textMessage != ''){
-      this.addToMessages()
       this.notifyServer()
       this.resetInputfield()
     }
@@ -82,6 +81,20 @@ export class ChatMessageHistoryComponent implements OnInit {
   handleSubscriptions(){
     this.auth.userNameObservable.subscribe( (userName : string ) => {
       this.userName = userName;
+    })
+
+    this.websocket.MessageSendToRoom.subscribe( (value) => {
+
+      const newMsg = {
+        message: value.message,
+        username: value.email,
+        date: this.getCurrentDatetime()
+      }
+
+      if(value.roomName == this.activeRoom.name){
+        this.messages.push(newMsg)
+
+      }
     })
   }
 

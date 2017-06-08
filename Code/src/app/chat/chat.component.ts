@@ -49,14 +49,15 @@ export class ChatComponent implements OnInit {
   }
 
   onRoomJoined(room: Room){
-
+    room.messages.push(
+      new Message(true, "Du hast den Raum betreten", "", this.getCurrentDatetime())
+    )
     this.joinedRooms.push(room);
-
     this.activeRoom = room;
   }
 
   onRoomLeft(room: Room) {
-    this.joinedRooms = this.joinedRooms.splice(this.joinedRooms.indexOf(room), 1)
+    this.joinedRooms = this.joinedRooms.filter(joinedRoom => joinedRoom.name !== room.name)
   }
 
   handleSubscriptions(){
@@ -72,45 +73,37 @@ export class ChatComponent implements OnInit {
       this.joinedRooms.forEach(room => {
         if(room.name === value.roomName){
           room.messages.push(new Message(false, value.message, value.email, this.getCurrentDatetime()));
-          if(room.name === this.activeRoom.name){
-            this.activeRoom = room;
-          }
+          if(room.name === this.activeRoom.name){ this.activeRoom = room; }
         }
       })
     })
 
-    this.websocket.roomJoined.subscribe( (value) => {
-      if(value.email === this.username)
-      {
-        let newRoom = {
-          name: value.roomName,
-          active: false,
-          joined: false,
-          subscribers: [],
-          messages : [{
-            isNotify: true,
-            message: "Du hast den Raum betreten",
-            username: "",
-            date: this.getCurrentDatetime()
-          }]
+    this.websocket.roomLeft.subscribe( (value) => {
+        if(value.email !== this.email){
+          this.joinedRooms.forEach(room => {
+            if(room.name === value.roomName){
+              room.subscribers = room.subscribers.filter(subscriber => subscriber.email !== value.email)
+              room.messages.push(
+                new Message(true,value.email + " hat den Raum verlassen","",this.getCurrentDatetime())
+              )
+            }
+          })
         }
+    })
 
-      }
-      else{
+    this.websocket.roomJoined.subscribe( (value) => {
+      if(value.email !== this.email){
+
         this.joinedRooms.forEach(room => {
-          if(room.name === value.roomName){
-            room.subscribers.push(
-              new Subscriber(value.name, value.email)
-            );
-
-            let notifyMessage = value.name + ' hat den Raum betreten';
+          if(room.name === value.roomName)
+          {
+            room.subscribers.push( new Subscriber(value.name, value.email) );
 
             room.messages.push(
-              new Message(true, notifyMessage, "", this.getCurrentDatetime())
+              new Message(true, value.email + ' hat den Raum betreten', "", this.getCurrentDatetime())
             );
-            if(room.name === this.activeRoom.name){
-              this.activeRoom = room;
-            }
+
+            if(room.name === this.activeRoom.name){ this.activeRoom = room; }
           }
         })
 
@@ -118,5 +111,4 @@ export class ChatComponent implements OnInit {
     })
 
   }
-
 }

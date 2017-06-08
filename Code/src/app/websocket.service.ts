@@ -19,6 +19,9 @@ export class WebsocketService {
   roomJoined : Subject<any> = new Subject<any>();
   roomJoinedObservable : Observable<any> = this.roomJoined.asObservable()
 
+  roomLeft : Subject<any> = new Subject<any>();
+  roomLeftObservable : Observable<any> = this.roomJoined.asObservable()
+
   socketId : number = -1;
 
   private connection : WebSocket;
@@ -61,6 +64,10 @@ export class WebsocketService {
           break;
         case "RoomJoined":
           this.roomJoined.next(o.value)
+          break;
+
+        case "RoomLeft":
+          this.roomLeft.next(o.value)
           break;
 
         case "LoggedOut":

@@ -1,16 +1,16 @@
 export class Message {
   isNotify : boolean;
   message : string;
-  username : string;
+  email : string;
   date : string;
 
   constructor();
 
-  constructor(isNotify : boolean, msg : string, name : string, date: string);
+  constructor(isNotify : boolean, msg : string, mail : string, date: string);
 
-  constructor(isNotify?: boolean, msg?: string, name?: string, date?: string) {
+  constructor(isNotify?: boolean, msg?: string, mail?: string, date?: string) {
     this.isNotify = isNotify;
-    this.username = name || '';
+    this.email = mail || '';
     this.message = msg  || '';
     this.date = date || '';
   }

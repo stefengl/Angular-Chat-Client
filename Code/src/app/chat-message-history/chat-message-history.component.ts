@@ -16,6 +16,7 @@ export class ChatMessageHistoryComponent{
 
   @Input() activeRoom: Room = null
   @Input() username : string = ''
+  @Input() email : string = ''
 
   textMessage : string = ''
 

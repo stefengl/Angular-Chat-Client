@@ -5,10 +5,12 @@
   </h1>
 
   <div class="messageBox">
-    <article *ngFor="let msg of activeRoom.messages" class="msg">
-      <h3 *ngIf="msg.username != ''" class="msgUsername">{{msg.username}}</h3>
-      <p class="msgMessage">{{msg.message}}</p>
-      <span class="msgDate">{{msg.date}}</span>
+    <article *ngFor="let msg of activeRoom.messages">
+      <div [ngClass]="msg.email == email ? 'ownMsg': 'msg'">
+        <h3 *ngIf="msg.email != email" class="msgUsername">{{msg.email}}</h3>
+        <p div [ngClass]="msg.isNotify ? 'msgNotifyMessage': 'msgMessage'">{{msg.message}}</p>
+        <span class="msgDate">{{msg.date}}</span>
+      </div>
     </article>
   </div>
 

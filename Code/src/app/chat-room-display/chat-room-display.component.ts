@@ -79,19 +79,7 @@ export class ChatRoomDisplayComponent implements OnInit {
   }
 
   rooms : Room[] = [
-    {
-      name: 'Channel 1',
-      active: false,
-      joined: false,
-      subscribers:[],
-      messages:[],
-    },
-    {
-      name: 'Channel 2',
-      active: false,
-      joined: false,
-      subscribers:[],
-      messages:[]
-    }
+    new Room('Channel 1', false, false, [], []),
+    new Room('Channel 2', false, false, [], []),
   ]
 }

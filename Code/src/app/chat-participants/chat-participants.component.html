@@ -1,9 +1,20 @@
 <aside *ngIf="activeRoom" class="participants-wrapper">
-  <ng-container *ngIf="activeRoom">
-    <p class="participants-name" *ngFor="let sub of activeRoom.subscribers">
-      {{sub.name}}
-      {{sub.roomAuthorization.isOP}}
-      {{sub.roomAuthorization.allowedToSpeak}}
-    </p>
+  <ng-container class="participants-name" *ngIf="activeRoom">
+    <p>Eigene Rechte:</p>
+    <p>Admin: {{activeRoom.ownAuthorization.isOP}}</p>
+    <p>Sprachrechte: {{activeRoom.ownAuthorization.allowedToSpeak}}</p>
+    <p>User im Channel:</p>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Admin</th>
+        <th>Sprachrechte</th>
+      </tr>
+      <tr class="participants-name" *ngFor="let sub of activeRoom.subscribers">
+        <td>{{sub.name}}</td>
+        <td>{{sub.roomAuthorization.isOP}}</td>
+        <td>{{sub.roomAuthorization.allowedToSpeak}}</td>
+      </tr>
+    </table>
   </ng-container>
 </aside>

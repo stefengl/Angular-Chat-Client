@@ -1,5 +1,6 @@
 import {Subscriber} from "../models/Subscriber";
 import {Message} from "../models/message";
+import {RoomAuthoritation} from "./roomAuthorization";
 
 export class Room {
   name : string;
@@ -7,6 +8,7 @@ export class Room {
   joined : boolean
   subscribers: Subscriber[];
   messages : Message[];
+  ownAuthorization : RoomAuthoritation;
 
   constructor();
 
@@ -18,5 +20,6 @@ export class Room {
     this.joined = active || false;
     this.subscribers = subscribers || null;
     this.messages = messages || null;
+    this.ownAuthorization = new RoomAuthoritation(false, false);
   }
 }

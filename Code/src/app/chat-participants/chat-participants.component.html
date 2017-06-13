@@ -2,6 +2,8 @@
   <ng-container *ngIf="activeRoom">
     <p class="participants-name" *ngFor="let sub of activeRoom.subscribers">
       {{sub.name}}
+      {{sub.roomAuthorization.isOP}}
+      {{sub.roomAuthorization.allowedToSpeak}}
     </p>
   </ng-container>
 </aside>

@@ -22,6 +22,12 @@ export class WebsocketService {
   roomLeft : Subject<any> = new Subject<any>();
   roomLeftObservable : Observable<any> = this.roomJoined.asObservable()
 
+  opGranted : Subject<any> = new Subject<any>();
+  opGrantedObservable : Observable<any> = this.roomJoined.asObservable()
+
+  voiceGranted : Subject<any> = new Subject<any>();
+  voiceGrantedObservable : Observable<any> = this.roomJoined.asObservable()
+
   socketId : number = -1;
 
   private connection : WebSocket;
@@ -68,6 +74,14 @@ export class WebsocketService {
 
         case "RoomLeft":
           this.roomLeft.next(o.value)
+          break;
+
+        case "OpGranted":
+          this.opGranted.next(o.value)
+          break;
+
+        case "VoiceGranted":
+          this.voiceGranted.next(o.value)
           break;
 
         case "LoggedOut":

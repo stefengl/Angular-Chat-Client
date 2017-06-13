@@ -110,5 +110,36 @@ export class ChatComponent implements OnInit {
       }
     })
 
+    this.websocket.opGranted.subscribe( (value) => {
+      this.joinedRooms.forEach(room => {
+        if(room.name === value.roomName)
+        {
+          if(value.email === this.email ) { room.ownAuthorization.isOP = value.op; }
+          else{
+            room.subscribers.forEach(subscriber =>
+            {
+              if(subscriber.email === value.email){ subscriber.roomAuthorization.isOP = value.op; }
+            })
+          }
+        }
+      })
+    })
+
+    this.websocket.voiceGranted.subscribe( (value) => {
+      this.joinedRooms.forEach(room => {
+        if(room.name === value.roomName)
+        {
+          if(value.email === this.email ) { room.ownAuthorization.allowedToSpeak = value.voice; }
+          else{
+            room.subscribers.forEach(subscriber =>
+            {
+              if(subscriber.email === value.email){ subscriber.roomAuthorization.allowedToSpeak = value.voice; }
+
+            })
+          }
+        }
+      })
+    })
+
   }
 }

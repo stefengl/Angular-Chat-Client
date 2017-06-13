@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Subscriber} from "../models/Subscriber";
+import {Subscriber} from "../models/subscriber";
 import { Room } from '../models/room';
 
 @Component({
@@ -13,14 +13,8 @@ export class ChatParticipantsComponent implements OnInit {
 
   subscriber: Subscriber[] =
   [
-    {
-      name: 'Alex',
-      email: ""
-    },
-    {
-      name: 'Benny',
-      email: ""
-    }
+    new Subscriber('Alex', ''),
+    new Subscriber('Benny', '')
   ]
   constructor() { }
 

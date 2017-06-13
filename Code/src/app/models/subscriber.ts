@@ -1,7 +1,9 @@
+import {RoomAuthoritation} from "./roomAuthorization";
 export class Subscriber
 {
   name: string;
   email: string;
+  roomAuthorization : RoomAuthoritation;
 
   constructor()
 
@@ -11,5 +13,6 @@ export class Subscriber
   {
     this.name = name;
     this.email = email;
+    this.roomAuthorization = new RoomAuthoritation(false, false);
   }
 }

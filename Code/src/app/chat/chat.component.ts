@@ -99,9 +99,11 @@ export class ChatComponent implements OnInit {
           {
             room.subscribers.push( new Subscriber(value.name, value.email) );
 
-            room.messages.push(
-              new Message(true, value.email + ' hat den Raum betreten', "", this.getCurrentDatetime())
-            );
+            if(room.messages[0].date !== this.getCurrentDatetime()){
+              room.messages.push(
+                new Message(true, value.email + ' hat den Raum betreten', "", this.getCurrentDatetime())
+              );
+            }
 
             if(room.name === this.activeRoom.name){ this.activeRoom = room; }
           }
